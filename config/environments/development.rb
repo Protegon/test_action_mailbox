@@ -32,6 +32,11 @@ Rails.application.configure do
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
+  # Deliver outgoing mail to MailCatcher (bundle exec mailcatcher) instead of
+  # a real SMTP server. Web UI at http://localhost:1080.
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = { address: "localhost", port: 1025 }
+
   # Make template changes take effect immediately.
   config.action_mailer.perform_caching = false
 
