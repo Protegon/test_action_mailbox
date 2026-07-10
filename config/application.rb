@@ -1,5 +1,16 @@
 require_relative "boot"
 
+env_file = File.expand_path("../.env", __dir__)
+if File.file?(env_file)
+  File.foreach(env_file) do |line|
+    line = line.strip
+    next if line.empty? || line.start_with?("#") || !line.include?("=")
+
+    key, value = line.split("=", 2)
+    ENV[key] ||= value.to_s.strip.delete_prefix("\"").delete_suffix("\"").delete_prefix("'").delete_suffix("'")
+  end
+end
+
 require "rails"
 # Pick the frameworks you want:
 require "active_model/railtie"
@@ -36,9 +47,6 @@ module TestMailbox
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
-    # Only loads a smaller set of middleware suitable for API only apps.
-    # Middleware like session, flash, cookies can be added back manually.
-    # Skip views, helpers and assets when generating a new resource.
-    config.api_only = true
+    config.api_only = false
   end
 end

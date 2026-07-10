@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     resources :orders, shallow: true
   end
 
+  resources :tickets, only: %i[index show]
+
   # Defines the root path route ("/")
-  # root "posts#index"
+  root "tickets#index"
 end
