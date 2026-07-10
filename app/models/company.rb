@@ -1,5 +1,5 @@
 class Company < ApplicationRecord
-  INBOUND_EMAIL_DOMAIN = "inbound.example.com"
+  INBOUND_EMAIL_DOMAIN = "mail.example.com"
 
   has_many :orders, dependent: :destroy
 

@@ -1,0 +1,33 @@
+services:
+  mailserver:
+    image: ghcr.io/docker-mailserver/docker-mailserver:latest
+    container_name: mailserver
+    # Provide the FQDN of your mail server here (Your DNS MX record should point to this value)
+    # Must differ from the mailbox domain (mail.example.com) below, or Postfix
+    # treats that domain as local (mydestination) instead of virtual, and
+    # rejects mail to it with "User unknown in local recipient table".
+    hostname: smtp.mail.example.com
+    ports:
+      - "25:25"
+      - "465:465"
+      - "587:587"
+      - "993:993"
+    volumes:
+      - ./docker-data/dms/mail-data/:/var/mail/
+      - mail-state:/var/mail-state/
+      - ./docker-data/dms/mail-logs/:/var/log/mail/
+      - ./docker-data/dms/config/:/tmp/docker-mailserver/
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - ENABLE_RSPAMD=0
+      - ENABLE_POLICYD_SPF=0
+      - ENABLE_OPENDKIM=0
+      - ENABLE_OPENDMARC=0
+      - ENABLE_CLAMAV=1
+      - ENABLE_FAIL2BAN=1
+    cap_add:
+      - NET_ADMIN # For Fail2Ban to work
+    restart: always
+
+volumes:
+  mail-state:
