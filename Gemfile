@@ -4,6 +4,8 @@ source "https://rubygems.org"
 gem "rails", "~> 8.1.3"
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", ">= 2.1"
+# Poll the support inbox directly over IMAP.
+gem "net-imap", ">= 0.6.4"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
@@ -47,9 +49,4 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
-end
-
-group :development do
-  # Local SMTP server + web UI to catch outgoing mail and simulate an inbox [https://mailcatcher.me]
-  gem "mailcatcher", "~> 0.2.4", require: false
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_10_003859) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_10_130000) do
   create_table "action_mailbox_inbound_emails", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "message_checksum", null: false
@@ -70,6 +70,21 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_10_003859) do
     t.decimal "total", precision: 10, scale: 2
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_orders_on_company_id"
+  end
+
+  create_table "tickets", force: :cascade do |t|
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.string "email_from", null: false
+    t.string "imap_folder", default: "INBOX", null: false
+    t.string "imap_host", null: false
+    t.integer "imap_uid", null: false
+    t.string "imap_username", null: false
+    t.string "message_id"
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email_from"], name: "index_tickets_on_email_from"
+    t.index ["imap_host", "imap_username", "imap_folder", "imap_uid"], name: "index_tickets_on_imap_identity", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

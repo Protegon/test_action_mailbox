@@ -1,0 +1,11 @@
+<div class="page-header">
+  <div>
+    <h1><%= @ticket.title %></h1>
+    <div class="muted">Usuário: <%= @ticket.email_from %></div>
+  </div>
+  <span class="status">Aberto</span>
+</div>
+
+<section class="panel">
+  <div class="ticket-body"><%= @ticket.content %></div>
+</section>

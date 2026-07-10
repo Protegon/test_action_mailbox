@@ -1,0 +1,36 @@
+<div class="page-header">
+  <div>
+    <h1>Chamados abertos</h1>
+    <div class="muted"><%= pluralize(@tickets.size, "chamado") %> recebido(s) via IMAP</div>
+  </div>
+  <span class="status">Aberto</span>
+</div>
+
+<section class="panel">
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Usuário</th>
+        <th>Título</th>
+        <th>Recebido em</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tickets.each do |ticket| %>
+        <tr>
+          <td><%= ticket.id %></td>
+          <td><%= ticket.email_from %></td>
+          <td><%= link_to ticket.title, ticket_path(ticket) %></td>
+          <td><%= l(ticket.created_at, format: :short) %></td>
+        </tr>
+      <% end %>
+
+      <% if @tickets.empty? %>
+        <tr>
+          <td colspan="4" class="muted">Nenhum chamado aberto até agora.</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>
