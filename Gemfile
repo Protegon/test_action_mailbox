@@ -51,5 +51,5 @@ end
 
 group :development do
   # Local SMTP server + web UI to catch outgoing mail and simulate an inbox [https://mailcatcher.me]
-  gem "mailcatcher", "~> 0.2.4", require: false
+  gem "mailcatcher", "~> 0.11.0", require: false
 end
